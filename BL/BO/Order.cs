@@ -17,6 +17,12 @@ namespace BO
         public bool IfPreferredCustomer { get; set; }
         public List<ProductInOrder> ProductsList { get; set; }
         public double FinalPrice { get; set; }
+        public Order(bool IsClubCustomer)
+        {
+            this.FinalPrice = 0;
+            this.IfPreferredCustomer = IsClubCustomer;
+            this.ProductsList = new List<ProductInOrder>();
+        }
 
         public override string ToString() => this.ToStringProperty();
     }

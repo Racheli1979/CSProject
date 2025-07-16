@@ -31,6 +31,12 @@ namespace UI
             sc.ShowDialog();
         }
 
+        private void buttonDoAccount_Click(object sender, EventArgs e)
+        {
+            Order o = new Order();
+            o.ShowDialog();
+        }
+
         private void addCustomerToClub_Click(object sender, EventArgs e)
         {
             Controls.Add(buttonAdd);
@@ -72,7 +78,7 @@ namespace UI
 
         private void RemoveUpdateInputs(Control sender)
         {
-            Controls.Remove(buttonUpdate);
+            Controls.Remove(buttonUpdateAdd);
             Controls.Remove(inputUpdatePhone);
             Controls.Remove(inputUpdateAddress);
             Controls.Remove(inputUpdateId);
@@ -112,7 +118,7 @@ namespace UI
 
         private void updateExsistCustomer_Click(object sender, EventArgs e)
         {
-            Controls.Add(buttonUpdate);
+            Controls.Add(buttonUpdateAdd);
             Controls.Add(inputUpdatePhone);
             Controls.Add(inputUpdateAddress);
             Controls.Add(inputUpdateId);
@@ -135,10 +141,10 @@ namespace UI
             {
                 BO.Customer customer = new BO.Customer
                 {
-                    CustomerId = int.Parse(inputUpdateId.Text),
-                    CustomerName = inputUpdateName.Text,
-                    Address = inputUpdateAddress.Text,
-                    Phone = inputUpdatePhone.Text
+                    CustomerId = int.Parse(inputId.Text),
+                    CustomerName = inputName.Text,
+                    Address = inputAddress.Text,
+                    Phone = inputPhone.Text
                 };
                 _bl.Customer.Update(customer);
             }
@@ -147,70 +153,6 @@ namespace UI
                 MessageBox.Show(ex.Message);
             }
             RemoveUpdateInputs((Control)sender);
-        }
-
-        private void deleteCustomerInClub_Click(object sender, EventArgs e)
-        {
-            Controls.Add(deleteIdLabel);
-            Controls.Add(inputDeleteId);
-        }
-
-        private void inputDeleteId_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                try
-                {
-                    int id = int.Parse(inputDeleteId.Text);
-                    _bl.Customer.Delete(id);
-                    inputDeleteId.Text = string.Empty;
-
-                    Controls.Remove(inputDeleteId);
-                    Controls.Remove(deleteIdLabel);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
-        }
-
-        private void buttonDoAccount_Click(object sender, EventArgs e)
-        {
-            Account a = new Account();
-            a.ShowDialog();
-        }
-
-        private void input_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                BO.Customer customer = null;
-                try
-                {
-                    if (!string.IsNullOrWhiteSpace(((TextBox)sender).Text))
-                    {
-                        try
-                        {
-                            customer = _bl.Customer.Read(int.Parse(((TextBox)sender).Text));
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                            throw new Exception();
-                        }
-                    }
-                    BO.Order order = new BO.Order(customer);
-                    Acount acount = new Acount(order);
-                    acount.Show();
-                }
-                catch (Exception ex)
-                {
-                    ((TextBox)sender).Text = "";
-                }
-                e.SuppressKeyPress = true;
-            }
         }
     }
 }

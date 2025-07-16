@@ -1,16 +1,44 @@
-﻿//  למה לא צריך לשים נקודה ופסיק בסוף שורה זו? namespace DO;
+﻿namespace DO;
 
-namespace DO
+//חריגה עבור מזהה שלא קיים
+[Serializable]
+public class DalExceptionIdDoesNotExistInTheList : Exception
 {
 
-    public class DalIdNotExistsException : Exception
+    public DalExceptionIdDoesNotExistInTheList(string type)
     {
-        public DalIdNotExistsException(string message):base(message)
-        {
 
-        }
+        throw new Exception($"ID does not exist in the list of {type}");
     }
-    
+}
+//חריגה עבור ישות עם מספר מזהה שכבר קיים ברשימה
+[Serializable]
+public class DalExceptionIdIsAlreadyExistInTheList : Exception
+{
 
+    public DalExceptionIdIsAlreadyExistInTheList(string type)
+    {
+        throw new Exception($"ID is already exist in the list of {type}");
+    }
+}
+//Nullחריגה עבור קבלת ישות
+
+[Serializable]
+public class DalExceptionNullReceived : Exception
+{
+    public DalExceptionNullReceived(string type)
+    {
+        throw new Exception($"null recived - {type}");
+    }
 }
 
+// חריגה עבור תנאי שאין ערכים העונים על תנאי זה
+
+[Serializable]
+public class DalExceptionNoValuesByCondition : Exception
+{
+    public DalExceptionNoValuesByCondition(string type)
+    {
+        throw new Exception($"There are no values ​​that meet this condition.filter of- {type}");
+    }
+}

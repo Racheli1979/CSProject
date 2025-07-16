@@ -28,36 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            orderButton = new Button();
+            sendButton = new Button();
+            ifPreferredCheckBox = new CheckBox();
             customerIdLabel = new Label();
-            password = new TextBox();
+            customerIdTextBox = new TextBox();
+            textHelloLabel = new Label();
             SuspendLayout();
             // 
-            // label1
+            // orderButton
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(574, 95);
-            label1.Name = "label1";
-            label1.Size = new Size(0, 23);
-            label1.TabIndex = 0;
+            orderButton.Enabled = false;
+            orderButton.BackColor = SystemColors.ControlDark;
+            orderButton.FlatAppearance.BorderColor = Color.White;
+            orderButton.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            orderButton.ForeColor = Color.Maroon;
+            orderButton.Location = new Point(307, 367);
+            orderButton.Name = "orderButton";
+            orderButton.Size = new Size(187, 44);
+            orderButton.TabIndex = 43;
+            orderButton.Text = "התחל הזמנה חדשה";
+            orderButton.UseVisualStyleBackColor = false;
+            orderButton.Click += orderButton_Click;
+            // 
+            // sendButton
+            // 
+            sendButton.BackColor = SystemColors.ControlDark;
+            sendButton.FlatAppearance.BorderColor = Color.White;
+            sendButton.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            sendButton.ForeColor = Color.Maroon;
+            sendButton.Location = new Point(352, 232);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(107, 44);
+            sendButton.TabIndex = 42;
+            sendButton.Text = "לשליחה";
+            sendButton.UseVisualStyleBackColor = false;
+            sendButton.Click += sendButton_Click;
+            // 
+            // ifPreferredCheckBox
+            // 
+            ifPreferredCheckBox.AutoSize = true;
+            ifPreferredCheckBox.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            ifPreferredCheckBox.ForeColor = Color.Maroon;
+            ifPreferredCheckBox.Location = new Point(352, 170);
+            ifPreferredCheckBox.Name = "ifPreferredCheckBox";
+            ifPreferredCheckBox.Size = new Size(116, 27);
+            ifPreferredCheckBox.TabIndex = 41;
+            ifPreferredCheckBox.Text = "חבר מועדון";
+            ifPreferredCheckBox.UseVisualStyleBackColor = true;
             // 
             // customerIdLabel
             // 
             customerIdLabel.AutoSize = true;
             customerIdLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             customerIdLabel.ForeColor = Color.Maroon;
-            customerIdLabel.Location = new Point(313, 52);
+            customerIdLabel.Location = new Point(326, 39);
             customerIdLabel.Name = "customerIdLabel";
             customerIdLabel.Size = new Size(168, 28);
-            customerIdLabel.TabIndex = 6;
+            customerIdLabel.TabIndex = 40;
             customerIdLabel.Text = "הכנס מזהה לקוח";
             // 
-            // password
+            // customerIdTextBox
             // 
-            password.Location = new Point(334, 110);
-            password.Name = "password";
-            password.Size = new Size(125, 30);
-            password.TabIndex = 5;
+            customerIdTextBox.Location = new Point(347, 97);
+            customerIdTextBox.Name = "customerIdTextBox";
+            customerIdTextBox.Size = new Size(125, 30);
+            customerIdTextBox.TabIndex = 39;
+            // 
+            // textHelloLabel
+            // 
+            textHelloLabel.AutoSize = true;
+            textHelloLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            textHelloLabel.ForeColor = Color.Maroon;
+            textHelloLabel.Location = new Point(317, 308);
+            textHelloLabel.Name = "textHelloLabel";
+            textHelloLabel.Size = new Size(0, 28);
+            textHelloLabel.TabIndex = 44;
             // 
             // Order
             // 
@@ -65,19 +111,25 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSalmon;
             ClientSize = new Size(800, 450);
+            Controls.Add(textHelloLabel);
+            Controls.Add(orderButton);
+            Controls.Add(sendButton);
+            Controls.Add(ifPreferredCheckBox);
             Controls.Add(customerIdLabel);
-            Controls.Add(password);
-            Controls.Add(label1);
+            Controls.Add(customerIdTextBox);
             Name = "Order";
-            Text = "הזמנה";
+            Text = "Order";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Button orderButton;
+        private Button sendButton;
+        private CheckBox ifPreferredCheckBox;
         private Label customerIdLabel;
-        private TextBox password;
+        private TextBox customerIdTextBox;
+        private Label textHelloLabel;
     }
 }

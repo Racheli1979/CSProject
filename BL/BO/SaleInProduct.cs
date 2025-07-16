@@ -19,6 +19,13 @@ namespace BO
         public int QuantityToSale { get; set; }
         public double Price { get; set; }
         public bool ForAllCustomers { get; set; }
+        public SaleInProduct(int id, int minAmountOfSale, double price, bool ForClub)
+        {
+            this.SaleId = id;
+            this.QuantityToSale = minAmountOfSale;
+            this.Price = price;
+            this.ForAllCustomers = ForClub;
+        }
 
         public override string ToString() => this.ToStringProperty();
     }

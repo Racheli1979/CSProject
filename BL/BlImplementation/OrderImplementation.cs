@@ -12,134 +12,137 @@ namespace BlImplementation
     {
         private DalApi.IDAL _dal = DalApi.Factory.Get;
 
-        /// <summary>
-        /// הוספת מוצר להזמנה
-        /// </summary>
-        /// <param name="order">הזמנה שרוצים להוסיף אליה מוצר</param>
-        /// <param name="productId">קוד מוצר שרוצים להוסיף</param>
-        /// <param name="quantity">כמות מהמוצר שרוצים להוסיף</param>
-        /// <returns>מחזירים את רשימת המבצעים שמומשו למוצר זה</returns>
-        /// <exception cref="BLNoQuantityInStock">שגיאה אם אין מספיק כמות במלאי</exception>
-        public List<SaleInProduct> AddProductToOrder(Order order, int productId, int qantityToOrder)
+        // הוספת מוצר להזמנה
+        public List<BO.SaleInProduct> AddProductToOrder(BO.Order order, int productId, int qantityToOrder)
         {
-            DO.Product product = _dal.iProduct.Read(productId);
-            BO.ProductInOrder p = null;
-            if (order.ProductsList != null)
-                p = order.ProductsList.FirstOrDefault(p => p.IdProduct == product._productId);
-            if (p == null)
+            try
             {
-                if (qantityToOrder <= product._quantity)
+                DO.Product productInStock = _dal.iProduct.Read(productId);
+                BO.ProductInOrder product;
+                product = order.ProductsList.FirstOrDefault<BO.ProductInOrder>(p => p.IdProduct == productId);
+
+                if (product == null)
                 {
-                    p = new BO.ProductInOrder();
-                    p.IdProduct = product._productId;
-                    p.NameOfProduct = product._productName;
-                    p.BasePriceOfProduct = product._price;
-                    p.OrderQuantity = qantityToOrder;
-                    order.ProductsList.Add(p);
+                    product = new BO.ProductInOrder(productId, productInStock._productName, productInStock._price, 0);
+                    order.ProductsList.Add(product);
                 }
-                else
+
+                if (productInStock._quantity < qantityToOrder + product.OrderQuantity)
                 {
-                    throw new BO.BLNoQuantityInStock("no quantity in stock");
+                    throw new BO.BLExceptionNotEnoughInStock(product.NameOfProduct);
                 }
+
+                product.OrderQuantity += qantityToOrder;
+
+                // עדכון המבצעים לאחר הוספת הכמות
+                product.SalesList = SearchSaleForProduct(productId, order.IfPreferredCustomer, product.OrderQuantity);
+
+                // חישוב המחיר לאחר עדכון המבצעים
+                CalcTotalPriceForProduct(product);
+
+                // חישוב הסכום הסופי להזמנה
+                CalcTotalPrice(order);
+
+                return product.SalesList;
             }
-            else
+            catch (Exception e)
             {
-                if (qantityToOrder + p.OrderQuantity <= product._quantity)
-                {
-                    order.ProductsList.Remove(p);
-                    p.OrderQuantity += qantityToOrder;
-                    order.ProductsList.Add(p);    
-                }
-                else
-                {
-                    throw new BO.BLNoQuantityInStock("no quantity in stock");
-                }
+                throw e;
             }
-            SearchSaleForProduct(p, order.IfPreferredCustomer);
-            CalcTotalPriceForProduct(p);
-            CalcTotalPrice(order);
-            return p.SalesList;
         }
 
-        /// <summary>
-        /// חישוב הסכום הסופי לתשלום להזמנה
-        /// </summary>
-        /// <param name="order">ההזמנה שרוצים לחשב את הסכום</param>
-        public void CalcTotalPrice(Order order)
+        // חישוב הסכום הסופי לתשלום להזמנה
+        public void CalcTotalPrice(BO.Order order)
         {
-            order.FinalPrice = (from p in order.ProductsList
-                                select p.FinalPriceOfProduct).Sum();
+            try
+            {
+                order.FinalPrice = order.ProductsList.Sum(p => p.FinalPriceOfProduct);
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
 
-        /// <summary>
-        /// חישוב המחיר לתשלום עבור מוצר בהזמנה, כולל מימוש מבצעים
-        /// </summary>
-        /// <param name="product">המוצר שרוצים לחשב את המחיר</param>
-        public void CalcTotalPriceForProduct(ProductInOrder product)
+        // חישוב המחיר לתשלום עבור מוצר בהזמנה, כולל מימוש מבצעים
+        public void CalcTotalPriceForProduct(BO.ProductInOrder productInOrder)
         {
-            if (product.SalesList == null)
+            try
             {
-                DO.Product p = _dal.iProduct.Read(product.IdProduct);
-                double sum = p._price;
-                product.FinalPriceOfProduct = (sum * product.OrderQuantity);
-            }
-            else
-            {
-                int count = product.OrderQuantity;
-                List<BO.SaleInProduct> UsedSalesList = new();
-                foreach (BO.SaleInProduct sale in product.SalesList)
+                int count = productInOrder.OrderQuantity;
+                double totalSum = 0;
+                int max;
+                List<BO.SaleInProduct> salesList = new List<BO.SaleInProduct>();
+                foreach (BO.SaleInProduct sale in productInOrder.SalesList)
                 {
-                    if (count < sale.QuantityToSale)
-                        continue;
-                    else
+                    if (count <= 0)
+                        break;
+                    if (sale.QuantityToSale <= count)
                     {
-                         int howMany = (int)count/sale.QuantityToSale;
-                         product.FinalPriceOfProduct += (howMany * sale.Price);
-                         count = count - howMany;
-                         UsedSalesList.Add(sale);
-                        if (count == 0)
-                            break;
+                        max = count / sale.QuantityToSale;
+                        totalSum += max * sale.Price;
+                        count -= max * sale.QuantityToSale; // עדכן את count בהתאם
+                        salesList.Add(sale);
                     }
+
                 }
-                product.FinalPriceOfProduct += (product.BasePriceOfProduct * count);
-                product.SalesList = UsedSalesList;
+                if (count > 0)
+                {
+                    totalSum += (productInOrder.BasePriceOfProduct * count);
+
+                }
+                productInOrder.SalesList = salesList;
+                productInOrder.FinalPriceOfProduct = totalSum;
+            }
+            catch
+            {
+                throw;
+
             }
         }
 
-        /// <summary>
-        /// DALעבור כל מוצר בהזמנה, מייצרים בקשת עדכון ל 
-        ///  כדי להוריד ממלאי המוצר את הכמות שבהזמנה
-        /// </summary>
-        /// <param name="order">ההזמנה שרוצים לעדכן</param>
+        //  מקבלת כפרמטר הזמנה ולא מחזירה ערך
         public void DoOrder(Order order)
         {
-            foreach (BO.ProductInOrder p in order.ProductsList)
+            try
             {
-                DO.Product product = _dal.iProduct.Read(p.IdProduct);
-                _dal.iProduct.Update(product with { _quantity = product._quantity - p.OrderQuantity });
+                foreach (BO.ProductInOrder p in order.ProductsList)
+                {
+                    DO.Product product = _dal.iProduct.Read(p.IdProduct);
+                    _dal.iProduct.Update(product with { _quantity = product._quantity - p.OrderQuantity });
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
-        /// <summary>
-        /// עדכון המבצעים המתאימים למוצר בהזמנה
-        /// </summary>
-        /// <param name="product">מוצר בהזמנה</param>
-        /// <param name="existingCustomer">האם ההזמנה היא ללקוח קיים</param>
-        public void SearchSaleForProduct(ProductInOrder product, bool existingCustomer)
+        //עדכון המבצעים המתאימים למוצר בהזמנה
+        public List<BO.SaleInProduct> SearchSaleForProduct(int productId, bool isClub, int amount)
         {
-            product.SalesList = _dal.iSale.ReadAll(
-                sale => product.IdProduct == sale._productId
-                && (existingCustomer == true || (existingCustomer == false && sale._forAllCusts == true))
-                && DateTime.Now >= sale._startSale && DateTime.Now <= sale._endSale
-                && product.OrderQuantity >= sale._amount)
-            .Select(s => new BO.SaleInProduct()
+
+            try
             {
-                SaleId = s._saleId,
-                ForAllCustomers = s._forAllCusts,
-                Price = s._salePrice,
-                QuantityToSale = s._amount,
-            }).ToList();
-            product.SalesList.OrderBy(s => s.Price / s.QuantityToSale);
+                List<DO.Sale> sales = _dal.iSale.ReadAll();
+                sales = (from s in sales
+                         where s._productId == productId
+                         select s).ToList();
+                if (!isClub)
+                {
+                    sales = sales.FindAll(s => !s._forAllCusts);
+                }
+                List<BO.SaleInProduct> list = (from s in sales
+                                               where s._endSale >= DateTime.Now && s._startSale <= DateTime.Now && amount >= s._amount
+                                               orderby s._salePrice / s._amount
+                                               select new BO.SaleInProduct(s._saleId, s._amount, s._salePrice, s._forAllCusts)).ToList();
+
+                return list;
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
     }
 }

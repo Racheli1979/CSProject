@@ -59,48 +59,13 @@ internal static class DataSource
         new Customer(901234581, "אורן שמואלי", "רחוב שקד 45", "050-4646464")
     };
 
-    /*internal static List<Product> Products { get; set; } = new List<Product>
-    {
-        new Product(DataSource.Config.SaleCode, "מה שבטוח אני לא מחליטה- מה שבטוח הורדתי שליטה", Categories.History, 19.99, 100),
-        new Product(0, "קושי=מחמאה- העלתי אותך הקבצה", Categories.Children, 29.99, 200),
-        new Product(0, "ד' מצייר את הציור ואת בוחרת באיזה צבעים לצבוע אותו", Categories.Children, 39.99, 150),
-        new Product(0, "הוי מתפלל וחוזר ומתפלל ויש שעה שנותנים לך", Categories.Children, 49.99, 80),
-        new Product(0, "ואפילו אם יעברו כמה ימים ושנים אשר ידמו לו שלא הועילה תפילתו כלום, אל יניח מלהתפלל, סוף סוף יראה בעיניו שתפילתו הועילה לו מאוד(סטיפלר)", Categories.Children, 59.99, 60),
-        new Product(0, "כשתהיה עומד להתפלל יהא לבך שמח עליך שאתה מתפלל לאלוקים שאין כיוצא בו (מס\"י)", Categories.Children, 69.99, 40),
-        new Product(0, "הוא אמר: \"שלום!\"", Categories.Children, 79.99, 20),
-        new Product(0, "הקב\"ה עומד לידך ומשתוקק לשמוע אותך", Categories.Children, 99.99, 100),
-        new Product(0, "אלוקי... אם תשרפני באש לא הוסיף כי אם אהבה ושמחה בך (חובת הלבבות)", Categories.Children, 49.99, 50),
-        new Product(0, "\"אהבת עולם אהבתיך על כן משכתיך חסד\" (ירמיה)", Categories.Children , 199.99, 30),
-        new Product(0, "\"אהבתי אתכם אמר ד'\" (מלאכי)", Categories.Children, 79.99, 20),
-        new Product(0, "\"תמים תהיה עם ד' אלוקיך\" (דברים)", Categories.Children, 29.99, 70),
-        new Product(0, "\"ד' רעי לא אחסר\" (תהילים)", Categories.Children, 59.99, 80),
-        new Product(0, "\"חרדת אדם יתן מוקש ובוטח בד' יסוגב\"- יסוגב מן הצרה (רבינו יונה)", Categories.Children, 299.99, 10),
-        new Product(0, "התפקיד שלנו הוא להפוך כל קושי- לאתגר", Categories.Children, 15.99, 150),
-        new Product(0, "סומכים עליך מהשמים שתקחי אחריות", Categories.Children, 149.99, 90),
-        new Product(0, "התגברות = התעלות", Categories.Children, 99.99, 100),
-        new Product(0, "כל יהודי בכל מצב ורמה הוא יהלום יקר המאיר בכל העולמות", Categories.Children, 49.99, 50),
-        new Product(0, "לכל יהודי יש נקודה טובה ומעלה מיוחדת", Categories.Children, 199.99, 30),
-        new Product(0, "להבין ביהלומים", Categories.Children, 79.99, 20),
-        new Product(0, "\" כי אשב בחושך ד' אור לי\"- \"לולי שישבתי בחושך לא היה ד' אור לי\"", Categories.Children, 29.99, 70),
-        new Product(0, "-\t\"זה היום עשה ד' נגילה ונשמחה בו\"", Categories.Children, 59.99, 80),
-        new Product(0, "יש צדיק גוזר וד' מקיים ודרגה גבוהה יותר - ד' גוזר וצדיק מקיים", Categories.Children, 299.99, 10),
-        new Product(0, "יש ילד שמאכילים אותו בכפית, אבל כשגדלים לפעמים ד' רוצה שנאכל לבד, גם אם כל האוכל נשפך, זה שווה!", Categories.Children, 15.99, 150),
-        new Product(0, "מה ישמח עכשיו את הקב\"ה?", Categories.Children, 149.99, 90),
-        new Product(0, "והנה ד' ניצב עליו מלא כל הארץ כבודו מביט עליו ובוחן כליות ולב אם עבדו כראוי", Categories.Children, 99.99, 100),
-        new Product(0, "מוצר 20", Categories.Children, 49.99, 50),
-        new Product(0, "מוצר 21", Categories.Children, 199.99, 30),
-        new Product(0, "מוצר 22", Categories.Children, 79.99, 20),
-        new Product(0, "מוצר 23", Categories.Children, 29.99, 70),
-        new Product(0, "מוצר 24", Categories.Children, 59.99, 80),
-        new Product(0, "מוצר 25", Categories.Children, 299.99, 10)
-    };*/
     internal static List<Product> Products { get; set; } = new List<Product>
     {
-        new Product(DataSource.Config.ProductCode, "Aish shelanu birushalim", Categories.הסטוריה, 85.5, 15),
-        new Product(DataSource.Config.ProductCode, "Yaldy yshay", Categories.ילדים, 15, 35),
-        new Product(DataSource.Config.ProductCode, "Linur", Categories.מבוגרים, 100, 6),
-        new Product(DataSource.Config.ProductCode, "Mi sheyematzmetz rishon", Categories.נוער, 70, 3),
-        new Product(DataSource.Config.ProductCode, "Chakimy deyehuday", Categories.סיפורי_צדיקים, 105, 10)
+        new Product(DataSource.Config.ProductCode, "Aish shelanu birushalim", Categories.History, 85.5, 15),
+        new Product(DataSource.Config.ProductCode, "Yaldy yshay", Categories.Children, 15, 35),
+        new Product(DataSource.Config.ProductCode, "Linur", Categories.Adult, 100, 6),
+        new Product(DataSource.Config.ProductCode, "Mi sheyematzmetz rishon", Categories.Noar, 70, 3),
+        new Product(DataSource.Config.ProductCode, "Chakimy deyehuday", Categories.Sipury_Tzadikim, 105, 10)
     };
 
     internal static  List<Sale> Sales { get; set; } = new List<Sale>

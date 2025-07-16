@@ -23,7 +23,16 @@ namespace BO
         public int OrderQuantity { get; set; }
         public List<BO.SaleInProduct> SalesList { get; set; }
         public double FinalPriceOfProduct { get; set; }
+        public ProductInOrder(int productId, string name, double basePrice, int amount)
+        {
+            this.IdProduct = productId;
+            this.NameOfProduct = name;
+            this.BasePriceOfProduct = basePrice;
+            this.OrderQuantity = amount;
+            this.SalesList = null;
+            this.FinalPriceOfProduct = 0;
 
+        }
         public override string ToString() => this.ToStringProperty();
     }
 }

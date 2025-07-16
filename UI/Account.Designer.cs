@@ -28,74 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonAddProduct = new Button();
-            inputProductId = new TextBox();
-            productIdLabel = new Label();
-            titleLabel = new Label();
-            buttonProductsList = new Button();
-            buttonEndAccount = new Button();
-            endAccountLabel = new Label();
-            buttonSeeMyProducts = new Button();
             quantityLabel = new Label();
-            inputQuantity = new TextBox();
+            endAccountLabel = new Label();
+            buttonEndAccount = new Button();
+            buttonProductsList = new Button();
+            titleLabel = new Label();
+            productIdLabel = new Label();
+            inputProductId = new TextBox();
+            buttonAddProduct = new Button();
+            buttonRemoveProduct = new Button();
+            removeProductIdLabel = new Label();
+            inputRemoveProductId = new TextBox();
+            listBox1 = new ListBox();
+            myProductsLabel = new Label();
+            inputQuantity = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)inputQuantity).BeginInit();
             SuspendLayout();
             // 
-            // buttonAddProduct
+            // quantityLabel
             // 
-            buttonAddProduct.BackColor = SystemColors.ControlDark;
-            buttonAddProduct.FlatAppearance.BorderColor = Color.White;
-            buttonAddProduct.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonAddProduct.ForeColor = Color.Maroon;
-            buttonAddProduct.Location = new Point(346, 284);
-            buttonAddProduct.Name = "buttonAddProduct";
-            buttonAddProduct.Size = new Size(126, 44);
-            buttonAddProduct.TabIndex = 7;
-            buttonAddProduct.Text = "הוספת מוצר";
-            buttonAddProduct.UseVisualStyleBackColor = false;
-            buttonAddProduct.Click += buttonAddProduct_Click;
+            quantityLabel.AutoSize = true;
+            quantityLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            quantityLabel.ForeColor = Color.Maroon;
+            quantityLabel.Location = new Point(483, 295);
+            quantityLabel.Name = "quantityLabel";
+            quantityLabel.Size = new Size(160, 23);
+            quantityLabel.TabIndex = 27;
+            quantityLabel.Text = "הכנס כמות להזמנה";
             // 
-            // inputProductId
+            // endAccountLabel
             // 
-            inputProductId.Location = new Point(323, 144);
-            inputProductId.Name = "inputProductId";
-            inputProductId.Size = new Size(168, 30);
-            inputProductId.TabIndex = 8;
-            // 
-            // productIdLabel
-            // 
-            productIdLabel.AutoSize = true;
-            productIdLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            productIdLabel.ForeColor = Color.Maroon;
-            productIdLabel.Location = new Point(340, 103);
-            productIdLabel.Name = "productIdLabel";
-            productIdLabel.Size = new Size(141, 23);
-            productIdLabel.TabIndex = 9;
-            productIdLabel.Text = "הכנס מזהה מוצר";
-            // 
-            // titleLabel
-            // 
-            titleLabel.AutoSize = true;
-            titleLabel.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            titleLabel.ForeColor = Color.Maroon;
-            titleLabel.Location = new Point(300, 28);
-            titleLabel.Name = "titleLabel";
-            titleLabel.Size = new Size(210, 46);
-            titleLabel.TabIndex = 10;
-            titleLabel.Text = "ביצוע הזמנה";
-            // 
-            // buttonProductsList
-            // 
-            buttonProductsList.BackColor = SystemColors.ControlDark;
-            buttonProductsList.FlatAppearance.BorderColor = Color.White;
-            buttonProductsList.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonProductsList.ForeColor = Color.Maroon;
-            buttonProductsList.Location = new Point(32, 336);
-            buttonProductsList.Name = "buttonProductsList";
-            buttonProductsList.Size = new Size(158, 86);
-            buttonProductsList.TabIndex = 11;
-            buttonProductsList.Text = "לראות את קטלוג המוצרים";
-            buttonProductsList.UseVisualStyleBackColor = false;
-            buttonProductsList.Click += buttonProductsList_Click;
+            endAccountLabel.AutoSize = true;
+            endAccountLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            endAccountLabel.ForeColor = Color.Maroon;
+            endAccountLabel.Location = new Point(362, 570);
+            endAccountLabel.Name = "endAccountLabel";
+            endAccountLabel.Size = new Size(217, 23);
+            endAccountLabel.TabIndex = 25;
+            endAccountLabel.Text = "סכום כולל לתשלום: 0 ש\"ח";
             // 
             // buttonEndAccount
             // 
@@ -103,65 +73,143 @@
             buttonEndAccount.FlatAppearance.BorderColor = Color.White;
             buttonEndAccount.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             buttonEndAccount.ForeColor = Color.Maroon;
-            buttonEndAccount.Location = new Point(346, 394);
+            buttonEndAccount.Location = new Point(408, 619);
             buttonEndAccount.Name = "buttonEndAccount";
             buttonEndAccount.Size = new Size(126, 44);
-            buttonEndAccount.TabIndex = 12;
+            buttonEndAccount.TabIndex = 24;
             buttonEndAccount.Text = "סיום ותשלום";
             buttonEndAccount.UseVisualStyleBackColor = false;
             buttonEndAccount.Click += buttonEndAccount_Click;
             // 
-            // endAccountLabel
+            // buttonProductsList
             // 
-            endAccountLabel.AutoSize = true;
-            endAccountLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            endAccountLabel.ForeColor = Color.Maroon;
-            endAccountLabel.Location = new Point(300, 345);
-            endAccountLabel.Name = "endAccountLabel";
-            endAccountLabel.Size = new Size(217, 23);
-            endAccountLabel.TabIndex = 13;
-            endAccountLabel.Text = "סכום כולל לתשלום: 0 ש\"ח";
+            buttonProductsList.BackColor = SystemColors.ControlDark;
+            buttonProductsList.FlatAppearance.BorderColor = Color.White;
+            buttonProductsList.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonProductsList.ForeColor = Color.Maroon;
+            buttonProductsList.Location = new Point(53, 570);
+            buttonProductsList.Name = "buttonProductsList";
+            buttonProductsList.Size = new Size(158, 86);
+            buttonProductsList.TabIndex = 23;
+            buttonProductsList.Text = "לראות את קטלוג המוצרים";
+            buttonProductsList.UseVisualStyleBackColor = false;
+            buttonProductsList.Click += buttonProductsList_Click;
             // 
-            // buttonSeeMyProducts
+            // titleLabel
             // 
-            buttonSeeMyProducts.BackColor = SystemColors.ControlDark;
-            buttonSeeMyProducts.FlatAppearance.BorderColor = Color.White;
-            buttonSeeMyProducts.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonSeeMyProducts.ForeColor = Color.Maroon;
-            buttonSeeMyProducts.Location = new Point(602, 336);
-            buttonSeeMyProducts.Name = "buttonSeeMyProducts";
-            buttonSeeMyProducts.Size = new Size(158, 86);
-            buttonSeeMyProducts.TabIndex = 14;
-            buttonSeeMyProducts.Text = "לראות את המוצרים שנאספו עד עכשיו";
-            buttonSeeMyProducts.UseVisualStyleBackColor = false;
+            titleLabel.AutoSize = true;
+            titleLabel.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            titleLabel.ForeColor = Color.Maroon;
+            titleLabel.Location = new Point(369, 67);
+            titleLabel.Name = "titleLabel";
+            titleLabel.Size = new Size(210, 46);
+            titleLabel.TabIndex = 22;
+            titleLabel.Text = "ביצוע הזמנה";
             // 
-            // quantityLabel
+            // productIdLabel
             // 
-            quantityLabel.AutoSize = true;
-            quantityLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            quantityLabel.ForeColor = Color.Maroon;
-            quantityLabel.Location = new Point(331, 190);
-            quantityLabel.Name = "quantityLabel";
-            quantityLabel.Size = new Size(160, 23);
-            quantityLabel.TabIndex = 16;
-            quantityLabel.Text = "הכנס כמות להזמנה";
+            productIdLabel.AutoSize = true;
+            productIdLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            productIdLabel.ForeColor = Color.Maroon;
+            productIdLabel.Location = new Point(492, 208);
+            productIdLabel.Name = "productIdLabel";
+            productIdLabel.Size = new Size(141, 23);
+            productIdLabel.TabIndex = 21;
+            productIdLabel.Text = "הכנס מזהה מוצר";
+            // 
+            // inputProductId
+            // 
+            inputProductId.Location = new Point(475, 249);
+            inputProductId.Name = "inputProductId";
+            inputProductId.Size = new Size(168, 30);
+            inputProductId.TabIndex = 20;
+            // 
+            // buttonAddProduct
+            // 
+            buttonAddProduct.BackColor = SystemColors.ControlDark;
+            buttonAddProduct.FlatAppearance.BorderColor = Color.White;
+            buttonAddProduct.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonAddProduct.ForeColor = Color.Maroon;
+            buttonAddProduct.Location = new Point(498, 389);
+            buttonAddProduct.Name = "buttonAddProduct";
+            buttonAddProduct.Size = new Size(126, 44);
+            buttonAddProduct.TabIndex = 19;
+            buttonAddProduct.Text = "הוספת מוצר";
+            buttonAddProduct.UseVisualStyleBackColor = false;
+            buttonAddProduct.Click += buttonAddProduct_Click;
+            // 
+            // buttonRemoveProduct
+            // 
+            buttonRemoveProduct.BackColor = SystemColors.ControlDark;
+            buttonRemoveProduct.FlatAppearance.BorderColor = Color.White;
+            buttonRemoveProduct.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonRemoveProduct.ForeColor = Color.Maroon;
+            buttonRemoveProduct.Location = new Point(218, 304);
+            buttonRemoveProduct.Name = "buttonRemoveProduct";
+            buttonRemoveProduct.Size = new Size(126, 44);
+            buttonRemoveProduct.TabIndex = 29;
+            buttonRemoveProduct.Text = "מחיקת מוצר";
+            buttonRemoveProduct.UseVisualStyleBackColor = false;
+            buttonRemoveProduct.Click += buttonRemoveProduct_Click;
+            // 
+            // removeProductIdLabel
+            // 
+            removeProductIdLabel.AutoSize = true;
+            removeProductIdLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            removeProductIdLabel.ForeColor = Color.Maroon;
+            removeProductIdLabel.Location = new Point(218, 207);
+            removeProductIdLabel.Name = "removeProductIdLabel";
+            removeProductIdLabel.Size = new Size(141, 23);
+            removeProductIdLabel.TabIndex = 31;
+            removeProductIdLabel.Text = "הכנס מזהה מוצר";
+            // 
+            // inputRemoveProductId
+            // 
+            inputRemoveProductId.Location = new Point(201, 248);
+            inputRemoveProductId.Name = "inputRemoveProductId";
+            inputRemoveProductId.Size = new Size(168, 30);
+            inputRemoveProductId.TabIndex = 30;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 23;
+            listBox1.Location = new Point(696, 100);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(314, 556);
+            listBox1.TabIndex = 32;
+            // 
+            // myProductsLabel
+            // 
+            myProductsLabel.AutoSize = true;
+            myProductsLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            myProductsLabel.ForeColor = Color.Maroon;
+            myProductsLabel.Location = new Point(765, 52);
+            myProductsLabel.Name = "myProductsLabel";
+            myProductsLabel.Size = new Size(138, 23);
+            myProductsLabel.TabIndex = 33;
+            myProductsLabel.Text = "סל המוצרים שלי";
             // 
             // inputQuantity
             // 
-            inputQuantity.Location = new Point(323, 231);
+            inputQuantity.Location = new Point(483, 339);
             inputQuantity.Name = "inputQuantity";
-            inputQuantity.Size = new Size(168, 30);
-            inputQuantity.TabIndex = 18;
+            inputQuantity.Size = new Size(150, 30);
+            inputQuantity.TabIndex = 34;
             // 
             // Account
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSalmon;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1038, 689);
             Controls.Add(inputQuantity);
+            Controls.Add(myProductsLabel);
+            Controls.Add(listBox1);
+            Controls.Add(removeProductIdLabel);
+            Controls.Add(inputRemoveProductId);
+            Controls.Add(buttonRemoveProduct);
             Controls.Add(quantityLabel);
-            Controls.Add(buttonSeeMyProducts);
             Controls.Add(endAccountLabel);
             Controls.Add(buttonEndAccount);
             Controls.Add(buttonProductsList);
@@ -171,21 +219,25 @@
             Controls.Add(buttonAddProduct);
             Name = "Account";
             Text = "Account";
+            ((System.ComponentModel.ISupportInitialize)inputQuantity).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Button buttonAddProduct;
-        private TextBox inputProductId;
-        private Label productIdLabel;
-        private Label titleLabel;
-        private Button buttonProductsList;
-        private Button buttonEndAccount;
-        private Label endAccountLabel;
-        private Button buttonSeeMyProducts;
         private Label quantityLabel;
-        private TextBox inputQuantity;
+        private Label endAccountLabel;
+        private Button buttonEndAccount;
+        private Button buttonProductsList;
+        private Label titleLabel;
+        private Label productIdLabel;
+        private TextBox inputProductId;
+        private Button buttonAddProduct;
+        private Button buttonRemoveProduct;
+        private Label removeProductIdLabel;
+        private TextBox inputRemoveProductId;
+        private ListBox listBox1;
+        private Label myProductsLabel;
+        private NumericUpDown inputQuantity;
     }
 }

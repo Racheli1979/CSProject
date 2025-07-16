@@ -18,7 +18,15 @@ namespace BlTest
                 if (!int.TryParse(Console.ReadLine(), out select)) select = 0;
                 while (select != -1)
                 {
-                    BO.Order order = new BO.Order();
+                    Console.WriteLine("enter if you are club 1 else 0");
+                    int selectClub;
+                    bool IsClubCustomer;
+                    if (!int.TryParse(Console.ReadLine(), out selectClub)) selectClub = 0;
+                    if (selectClub == 0)
+                        IsClubCustomer = false;
+                    else
+                        IsClubCustomer = true;
+                    BO.Order order = new BO.Order(IsClubCustomer);
                     order.ProductsList = new List<BO.ProductInOrder>();
                     AddProduct(select, order);
                     Console.WriteLine("enter id of customer or -1 to exit");

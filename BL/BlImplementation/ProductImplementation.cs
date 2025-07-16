@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlApi;
+using DalApi;
 
 namespace BlImplementation
 {
-    internal class ProductImplementation : IProduct
+    internal class ProductImplementation : BlApi.IProduct
     {
         private DalApi.IDAL _dal = DalApi.Factory.Get;
         public int Create(BO.Product product)
@@ -20,16 +21,29 @@ namespace BlImplementation
             _dal.iProduct.Delete(id);
         }
 
-        public List<BO.SaleInProduct> PromotionsInEffect(int productId, bool favorite)
+        public List<BO.SaleInProduct> PromotionsInEffect(int productId, bool isClub)
         {
-            return _dal.iSale.ReadAll(sale => productId == sale._saleId && (favorite == true || sale._forAllCusts == false) && DateTime.Now >= sale._startSale && DateTime.Now <= sale._endSale)
-                .Select(s => new BO.SaleInProduct()
+            try
+            {
+                List<DO.Sale> sales = _dal.iSale.ReadAll();
+                sales = (from s in sales
+                         where s._productId == productId
+                         select s).ToList();
+
+                if (!isClub)
                 {
-                    SaleId = s._saleId,
-                    ForAllCustomers = s._forAllCusts,
-                    Price = s._salePrice,
-                    QuantityToSale = s._amount,
-                }).ToList();
+                    sales = sales.FindAll(s => !s._forAllCusts);
+                }
+                List<BO.SaleInProduct> list = (from s in sales
+                                               where s._endSale >= DateTime.Now && s._startSale <= DateTime.Now
+                                               select new BO.SaleInProduct(s._saleId, s._amount, s._salePrice, s._forAllCusts)).ToList();
+
+                return list;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public BO.Product? Read(int id)

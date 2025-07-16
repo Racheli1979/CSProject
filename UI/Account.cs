@@ -14,12 +14,14 @@ namespace UI
 {
     public partial class Account : Form
     {
-        private BlApi.IBl _bl = BlApi.Factory.Get();
-        Order order;
-        public Account()
+        static readonly BlApi.IBl _bl = BlApi.Factory.Get();
+        private BO.Order order;
+        List<BO.SaleInProduct> list;
+        public Account(bool isClub)
         {
             InitializeComponent();
-            order = new Order();
+            order = new BO.Order(isClub);
+            list = new List<BO.SaleInProduct>();
         }
 
         private void buttonProductsList_Click(object sender, EventArgs e)
@@ -30,14 +32,49 @@ namespace UI
 
         private void buttonAddProduct_Click(object sender, EventArgs e)
         {
-            BO.ProductOrder p = _bl.Order.
+            int id, amount;
+            if (int.TryParse(inputProductId.Text, out id) && int.TryParse(inputQuantity.Value.ToString(), out amount))
+            {
+                // הוספת המוצר להזמנה ולקבלת רשימת המבצעים
+                list = _bl.Order.AddProductToOrder(order, id, amount);
 
+                // עדכון רשימת המבצעים למוצר
+                var productInOrder = order.ProductsList.Find(p => p.IdProduct == id);
+                if (productInOrder != null)
+                {
+                    productInOrder.SalesList = _bl.Order.SearchSaleForProduct(id, order.IfPreferredCustomer, productInOrder.OrderQuantity);
+                    _bl.Order.CalcTotalPriceForProduct(productInOrder);
+                }
 
+                // עדכון ה-UI
+                listBox1.DataSource = order.ProductsList.SelectMany(p => p.ToString().Split("\n")).ToList();
+                endAccountLabel.Text = order.FinalPrice.ToString();
+            }
+            inputProductId.Text = "";
+            inputQuantity.Value = 1;
+        }
+
+        private void buttonRemoveProduct_Click(object sender, EventArgs e)
+        {
+            int id;
+            if (int.TryParse(inputRemoveProductId.Text, out id))
+            {
+                ProductInOrder p = order.ProductsList.Find(p => p.IdProduct == id);
+                order.ProductsList.Remove(p);
+                listBox1.DataSource = null;
+                listBox1.DataSource = order.ProductsList.SelectMany(p => p.ToString().Split("\n")).ToList();
+                _bl.Order.CalcTotalPrice(order);
+                endAccountLabel.Text = $"סכום כולל לתשלום: {order.FinalPrice.ToString()} ש\"ח";
+
+            }
+            inputRemoveProductId.Text = "";
         }
 
         private void buttonEndAccount_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show($" התשלום בוצע בהצלחה!! \n" +
+                "תודה שקניתם אצלנו!" + order.FinalPrice.ToString());
+            this.Close();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace UI
+﻿namespace UI
 {
     partial class CashierMenu
     {
@@ -48,7 +46,7 @@ namespace UI
             buttonCencel = new Button();
             buttonAdd = new Button();
             inputName = new TextBox();
-            buttonUpdate = new Button();
+            buttonUpdateAdd = new Button();
             inputUpdatePhone = new TextBox();
             inputUpdateAddress = new TextBox();
             inputUpdateId = new TextBox();
@@ -58,8 +56,6 @@ namespace UI
             updateNameLabel = new Label();
             updateIdLabel = new Label();
             buttonUpdateCencel = new Button();
-            inputDeleteId = new TextBox();
-            deleteIdLabel = new Label();
             SuspendLayout();
             // 
             // contextMenuStrip1
@@ -106,7 +102,6 @@ namespace UI
             deleteCustomerInClub.TabIndex = 5;
             deleteCustomerInClub.Text = "להסיר לקוח מהמועדון";
             deleteCustomerInClub.UseVisualStyleBackColor = false;
-            deleteCustomerInClub.Click += deleteCustomerInClub_Click;
             // 
             // buttonProductsList
             // 
@@ -118,7 +113,7 @@ namespace UI
             buttonProductsList.Name = "buttonProductsList";
             buttonProductsList.Size = new Size(158, 86);
             buttonProductsList.TabIndex = 4;
-            buttonProductsList.Text = "לראות את קטלוג המוצרים";
+            buttonProductsList.Text = "לצפות בקטלוג המוצרים";
             buttonProductsList.UseVisualStyleBackColor = false;
             buttonProductsList.Click += buttonProductsList_Click;
             // 
@@ -132,7 +127,7 @@ namespace UI
             buttonDoAccount.Name = "buttonDoAccount";
             buttonDoAccount.Size = new Size(158, 84);
             buttonDoAccount.TabIndex = 6;
-            buttonDoAccount.Text = "לביצוע הזמנה";
+            buttonDoAccount.Text = "לביצוע חשבון";
             buttonDoAccount.UseVisualStyleBackColor = false;
             buttonDoAccount.Click += buttonDoAccount_Click;
             // 
@@ -142,7 +137,7 @@ namespace UI
             buttonCustomersList.FlatAppearance.BorderColor = Color.White;
             buttonCustomersList.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             buttonCustomersList.ForeColor = Color.Maroon;
-            buttonCustomersList.Location = new Point(73, 191);
+            buttonCustomersList.Location = new Point(73, 180);
             buttonCustomersList.Name = "buttonCustomersList";
             buttonCustomersList.Size = new Size(158, 86);
             buttonCustomersList.TabIndex = 9;
@@ -248,18 +243,18 @@ namespace UI
             inputName.Size = new Size(163, 30);
             inputName.TabIndex = 58;
             // 
-            // buttonUpdate
+            // buttonUpdateAdd
             // 
-            buttonUpdate.BackColor = SystemColors.ControlDark;
-            buttonUpdate.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonUpdate.ForeColor = Color.Maroon;
-            buttonUpdate.Location = new Point(441, 398);
-            buttonUpdate.Name = "buttonUpdate";
-            buttonUpdate.Size = new Size(94, 40);
-            buttonUpdate.TabIndex = 67;
-            buttonUpdate.Text = "עדכון";
-            buttonUpdate.UseVisualStyleBackColor = false;
-            buttonUpdate.Click += buttonUpdateAdd_Click;
+            buttonUpdateAdd.BackColor = SystemColors.ControlDark;
+            buttonUpdateAdd.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonUpdateAdd.ForeColor = Color.Maroon;
+            buttonUpdateAdd.Location = new Point(441, 398);
+            buttonUpdateAdd.Name = "buttonUpdateAdd";
+            buttonUpdateAdd.Size = new Size(94, 40);
+            buttonUpdateAdd.TabIndex = 67;
+            buttonUpdateAdd.Text = "הוספה";
+            buttonUpdateAdd.UseVisualStyleBackColor = false;
+            buttonUpdateAdd.Click += buttonUpdateAdd_Click;
             // 
             // inputUpdatePhone
             // 
@@ -346,25 +341,6 @@ namespace UI
             buttonUpdateCencel.UseVisualStyleBackColor = false;
             buttonUpdateCencel.Click += buttonUpdateCencel_Click;
             // 
-            // inputDeleteId
-            // 
-            inputDeleteId.Location = new Point(254, 209);
-            inputDeleteId.Name = "inputDeleteId";
-            inputDeleteId.Size = new Size(158, 30);
-            inputDeleteId.TabIndex = 69;
-            inputDeleteId.KeyPress += inputDeleteId_KeyPress;
-            // 
-            // deleteIdLabel
-            // 
-            deleteIdLabel.AutoSize = true;
-            deleteIdLabel.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            deleteIdLabel.ForeColor = Color.Maroon;
-            deleteIdLabel.Location = new Point(287, 161);
-            deleteIdLabel.Name = "deleteIdLabel";
-            deleteIdLabel.Size = new Size(103, 23);
-            deleteIdLabel.TabIndex = 70;
-            deleteIdLabel.Text = "מספר מזהה";
-            // 
             // CashierMenu
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
@@ -380,6 +356,7 @@ namespace UI
             Name = "CashierMenu";
             Text = "תפריט קופאי";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -401,7 +378,7 @@ namespace UI
         private Button buttonCencel;
         private Button buttonAdd;
         private TextBox inputName;
-        private Button buttonUpdate;
+        private Button buttonUpdateAdd;
         private TextBox inputUpdatePhone;
         private TextBox inputUpdateAddress;
         private TextBox inputUpdateId;
@@ -411,7 +388,5 @@ namespace UI
         private Label updateNameLabel;
         private Label updateIdLabel;
         private Button buttonUpdateCencel;
-        private TextBox inputDeleteId;
-        private Label deleteIdLabel;
     }
 }
