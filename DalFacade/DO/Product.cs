@@ -8,7 +8,7 @@ namespace DO
 {
     public record Product(int _productId, string _productName, Categories _category, double _price, int _quantity)
     {
-        public Product() : this(0, null, Categories.Sipury_Tzadikim, 0.0, 0)
+        public Product() : this(0, null, Categories.סיפורי_צדיקים, 0.0, 0)
         {
 
         }

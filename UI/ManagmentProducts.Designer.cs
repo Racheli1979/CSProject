@@ -57,7 +57,7 @@
             // inputCategory
             // 
             inputCategory.FormattingEnabled = true;
-            inputCategory.Items.AddRange(new object[] { "Sipury_Tzadikim", "Children", "Noar", "Adult", "History" });
+            inputCategory.Items.AddRange(new object[] { "סיפורי_צדיקים", "ילדים", "נוער", "מבוגרים", "הסטוריה" });
             inputCategory.Location = new Point(253, 212);
             inputCategory.Name = "inputCategory";
             inputCategory.Size = new Size(163, 31);
@@ -297,7 +297,7 @@
             // inputUpdateCategory
             // 
             inputUpdateCategory.FormattingEnabled = true;
-            inputUpdateCategory.Items.AddRange(new object[] { "Sipury_Tzadikim", "Children", "Noar", "Adult", "History" });
+            inputUpdateCategory.Items.AddRange(new object[] { "סיפורי_צדיקים", "ילדים", "נוער", "מבוגרים", "הסטוריה" });
             inputUpdateCategory.Location = new Point(29, 212);
             inputUpdateCategory.Name = "inputUpdateCategory";
             inputUpdateCategory.Size = new Size(163, 31);

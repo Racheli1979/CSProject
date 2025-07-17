@@ -6,9 +6,9 @@
 
 public enum Categories
 {
-    Sipury_Tzadikim,
-    Children,
-    Noar,
-    Adult,
-    History
+    סיפורי_צדיקים,
+    ילדים,
+    נוער,
+    מבוגרים,
+    הסטוריה
 }

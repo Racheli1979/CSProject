@@ -48,7 +48,7 @@ namespace UI
 
                 // עדכון ה-UI
                 listBox1.DataSource = order.ProductsList.SelectMany(p => p.ToString().Split("\n")).ToList();
-                endAccountLabel.Text = order.FinalPrice.ToString();
+                endAccountLabel.Text = $"סכום כולל לתשלום: {order.FinalPrice.ToString()} ש\"ח";
             }
             inputProductId.Text = "";
             inputQuantity.Value = 1;
